@@ -1,0 +1,166 @@
+# Nmap 7.98 scan initiated Fri May 22 18:16:00 2026 as: nmap --script vuln -oN scan4_vulnscripts.txt demo.testfire.net
+Nmap scan report for demo.testfire.net (65.61.137.117)
+Host is up (0.13s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+80/tcp   open   http
+|_http-internal-ip-disclosure: ERROR: Script execution failed (use -d to debug)
+| http-dombased-xss: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=demo.testfire.net
+|   Found the following indications of potential DOM based XSS: 
+|     
+|     Source: window.open('disclaimer.htm?url=http://www.netscape.com', '_blank', 'status=no,location=no,menubar=no,resizable=no,scrollbars=no,toolbar=no,width=450,height=200')
+|     Pages: http://demo.testfire.net:80/index.jsp?content=inside_contact.htm
+|     
+|     Source: window.open('disclaimer.htm?url=http://www.microsoft.com', '_blank', 'status=no,location=no,menubar=no,resizable=no,scrollbars=no,toolbar=no,width=450,height=200')
+|_    Pages: http://demo.testfire.net:80/index.jsp?content=inside_contact.htm
+| http-csrf: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=demo.testfire.net
+|   Found the following possible CSRF vulnerabilities: 
+|     
+|     Path: http://demo.testfire.net:80/
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/default.jsp?content=security.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=personal_investments.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=personal_cards.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=personal_other.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/survey_questions.jsp
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/status_check.jsp
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/status_check.jsp
+|     Form id: frmjsonsubmit
+|     Form action: javascript:checkSiteStatus('AltoroMutual')
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=inside_press.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=security.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=inside_investor.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=business_deposit.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=business_other.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/login.jsp
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/login.jsp
+|     Form id: login
+|     Form action: doLogin
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=inside_about.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=inside_careers.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=business_insurance.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=inside_contact.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/index.jsp?content=personal_checking.htm
+|     Form id: frmsearch
+|     Form action: /search.jsp
+|     
+|     Path: http://demo.testfire.net:80/search.jsp
+|     Form id: frmsearch
+|_    Form action: /search.jsp
+| http-enum: 
+|   /login.jsp: Possible admin folder
+|_  /login.jsp: Login page
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+443/tcp  open   https
+|_http-vuln-cve2014-3704: ERROR: Script execution failed (use -d to debug)
+|_http-csrf: Couldn't find any CSRF vulnerabilities.
+| http-slowloris-check: 
+|   VULNERABLE:
+|   Slowloris DOS attack
+|     State: LIKELY VULNERABLE
+|     IDs:  CVE:CVE-2007-6750
+|       Slowloris tries to keep many connections to the target web server open and hold
+|       them open as long as possible.  It accomplishes this by opening connections to
+|       the target web server and sending a partial request. By doing so, it starves
+|       the http server's resources causing Denial Of Service.
+|       
+|     Disclosure date: 2009-09-17
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
+|_      http://ha.ckers.org/slowloris/
+| ssl-dh-params: 
+|   VULNERABLE:
+|   Diffie-Hellman Key Exchange Insufficient Group Strength
+|     State: VULNERABLE
+|       Transport Layer Security (TLS) services that use Diffie-Hellman groups
+|       of insufficient strength, especially those using one of a few commonly
+|       shared groups, may be susceptible to passive eavesdropping attacks.
+|     Check results:
+|       WEAK DH GROUP 1
+|             Cipher Suite: TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+|             Modulus Type: Safe prime
+|             Modulus Source: RFC2409/Oakley Group 2
+|             Modulus Length: 1024
+|             Generator Length: 8
+|             Public Key Length: 1024
+|     References:
+|_      https://weakdh.org
+|_http-aspnet-debug: ERROR: Script execution failed (use -d to debug)
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+8080/tcp open   http-proxy
+| http-enum: 
+|   /login.jsp: Possible admin folder
+|_  /login.jsp: Login page
+| http-slowloris-check: 
+|   VULNERABLE:
+|   Slowloris DOS attack
+|     State: LIKELY VULNERABLE
+|     IDs:  CVE:CVE-2007-6750
+|       Slowloris tries to keep many connections to the target web server open and hold
+|       them open as long as possible.  It accomplishes this by opening connections to
+|       the target web server and sending a partial request. By doing so, it starves
+|       the http server's resources causing Denial Of Service.
+|       
+|     Disclosure date: 2009-09-17
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
+|_      http://ha.ckers.org/slowloris/
+|_http-internal-ip-disclosure: ERROR: Script execution failed (use -d to debug)
+8443/tcp closed https-alt
+
+# Nmap done at Fri May 22 18:21:19 2026 -- 1 IP address (1 host up) scanned in 318.83 seconds
